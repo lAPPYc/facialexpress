@@ -3,13 +3,13 @@ import cv2
 import numpy as np
 
 #detector = dlib.get_frontal_face_detector()
-detector = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
-predictor = 'shape_predictor_68_face_landmarks.dat'
+detector = cv2.CascadeClassifier("lib/haarcascade_frontalface_default.xml")
+predictor = 'lib/shape_predictor_68_face_landmarks.dat'
 predictor = dlib.shape_predictor(predictor)
 
 cam = cv2.VideoCapture(0)
 #cam = cv2.VideoCapture('../../../G/Himanshu/Series/Chuck/Season 2/Chuck Season 2 Episode 11.ts')		#if nonetype is returned, interchange ts and TS'
-img = cv2.imread('dlib/examples/faces/2008_002506.jpg')
+#img = cv2.imread('lib/dlib/examples/faces/2008_002506.jpg')
 
 JAWLINE_POINTS = list(range(0, 17))  
 RIGHT_EYEBROW_POINTS = list(range(17, 22))  
@@ -42,9 +42,10 @@ while(1):
 		
 		dlib_rect = dlib.rectangle(int(x), int(y), int(x+w), int(y+h))
 		
-		landmarks = np.matrix([[p.x, p.y] for p in predictor(img, dlib_rect).parts()])
+		landmarks = np.matrix([[p.x, p.y] for p in predictor(img, dlib_rect).parts()])		#Landmarks is a matrix with landmark no. as the first coordinate, and the x and y on the second position. x coordinate of 13th landmark is accessed by landmarks[12,0]
 		
 		for idx, point in enumerate(landmarks):
+			print idx
 			pos = (point[0,0], point[0,1])
 			cv2.putText(img, str(idx), pos,
 						fontFace = cv2.FONT_HERSHEY_SCRIPT_SIMPLEX,
@@ -56,6 +57,12 @@ while(1):
 	cv2.imshow('output',img)
 	if cv2.waitKey(1) & 0xFF == ord('q'):
 		break
+print type(landmarks)
+print landmarks.size
+print landmarks[0]
+print landmarks[0,0]
+print type(landmarks[0])
+print type(landmarks[0][0])
 
 cam.release()
 cv2.destroyAllWindows()
