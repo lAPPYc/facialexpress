@@ -45,7 +45,6 @@ while(1):
 		landmarks = np.matrix([[p.x, p.y] for p in predictor(img, dlib_rect).parts()])		#Landmarks is a matrix with landmark no. as the first coordinate, and the x and y on the second position. x coordinate of 13th landmark is accessed by landmarks[12,0]
 		
 		for idx, point in enumerate(landmarks):
-			print idx
 			pos = (point[0,0], point[0,1])
 			cv2.putText(img, str(idx), pos,
 						fontFace = cv2.FONT_HERSHEY_SCRIPT_SIMPLEX,
@@ -57,12 +56,6 @@ while(1):
 	cv2.imshow('output',img)
 	if cv2.waitKey(1) & 0xFF == ord('q'):
 		break
-print type(landmarks)
-print landmarks.size
-print landmarks[0]
-print landmarks[0,0]
-print type(landmarks[0])
-print type(landmarks[0][0])
 
 cam.release()
 cv2.destroyAllWindows()
