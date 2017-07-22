@@ -38,7 +38,7 @@ def face_capture():
 										)
 
 		for (x, y ,w, h) in faces:	
-			if len(faces) = 1:
+			if len(faces) == 1:
 				cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
 		
 			dlib_rect = dlib.rectangle(int(x), int(y), int(x+w), int(y+h))
@@ -60,6 +60,6 @@ def face_capture():
 		if cv2.waitKey(1) & 0xFF == ord('q'):
 			break
 
-	cv2.destroyAllWindows()
 	del(cam)
+	cv2.destroyAllWindows()
 	return faces, positions
