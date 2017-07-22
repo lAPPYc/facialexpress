@@ -72,10 +72,12 @@ def normalize(face, position):
 			
 	return position
 
+create()
+
 for i in expressions:
 	put = open('training_dataset/'+i+'.txt','a')
 	
-	for l in range(10):
+	for l in range(5):
 		print '\n\nfor ', i, '\n'
 		'''raw_input("Hit Enter when ready to take pic:")
 
