@@ -3,13 +3,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 from time import sleep
 import os
+import sys
+sys.path.append('/training_dataset')
+
 
 expressions =  ['neutral','smile','fear','disgust','anger','surprise','curious']
 
 def create():
-	os.system('rm training_dataset/')
+
 	for i in expressions:
-		os.system('touch training_dataset/'+i+'.txt')
+		import i
+		
 
 def normalize(face, position, w, h, eye_dist):
 

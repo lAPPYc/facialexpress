@@ -13,7 +13,7 @@ eye_dist = 20
 def build(no):
 
 	for i in expressions:
-		put = open('training_dataset/'+i+'.txt','a')
+		put = open('training_dataset/'+i+'.py','a')
 	
 		for l in range(no):
 			print '\n\nfor ', i, '\n'
@@ -29,8 +29,14 @@ def build(no):
 			print type(position[0])
 			position = normalize(face, position,w,h,eye_dist)
 			
-			put.write(str(position)+':')
+			if l == 0:
+				put.write(i+' = ')
+			
+			if l == no-1:
+				put.write(str(position))
+			else:
+				put.write(str(position)+':')
 		put.close()
 
 create()
-build(5)
+build(2)
