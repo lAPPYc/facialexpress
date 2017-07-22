@@ -1,4 +1,4 @@
-from dataset import expression
+expressions =  ['neutral','smile','fear','disgust','anger','surprise','curious']
 
 def preprocessing():
 	global expressions
@@ -30,4 +30,4 @@ def train(features_train, labels_train):
 	
 	return clf
 
-classifier = train()
+classifier = train(features, labels)
