@@ -1,31 +1,29 @@
-expressions =  ['neutral','smile','fear','disgust','anger','surprise','curious']
-
 def preprocessing():
 	global expressions
-	import training_dataset/neutral
+	import sys
+	sys.path.append('training_dataset')
+	import neutral
+	import smile
+	import fear
+	import disgust
+	import anger
+	import surprise
+	import curious
+	
+	expressions =  {'neutral':neutral.neutral,'smile':smile.smile,'fear':fear.fear,'disgust':disgust.disgust,'anger':anger.anger,'surprise':surprise.surprise,'curious':curious.curious}
+
 	
 	features = []
 	labels = []
 	
 	for i in expressions:
-		f = open('training_dataset/'+i+'.txt','r')
-		data  = f.read()
-		data = data.split(':')
-		data.pop()
-		for j in range(len(data)):
-			features.append(data[j])
+		for j in range(len(expressions[i])):
+			features.append(expressions[i][j])
 			labels.append(i)
 	
 	return features, labels
 
 features, labels = preprocessing()
-print type(features)
-print len(features)
-print len(labels)
-print type(features[0])
-print features[0]
-
-print 'train is working'
 
 def train(features_train, labels_train):
 
@@ -37,3 +35,13 @@ def train(features_train, labels_train):
 	return clf
 
 classifier = train(features, labels)
+
+from sklearn.externals import joblib
+joblib.dump(classifier,'classifier.pkl')
+
+
+
+
+
+
+

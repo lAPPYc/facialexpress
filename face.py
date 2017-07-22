@@ -53,12 +53,12 @@ def face_capture(N = None):
 		
 				positions = []
 				for idx, point in enumerate(landmarks):
+					
 					pos = (point[0,0], point[0,1])
 					positions.append(pos)
-					cv2.putText(img, str(idx), pos,
-								fontFace = cv2.FONT_HERSHEY_SCRIPT_SIMPLEX,
-								fontScale = 0.4,
-								color=(0,0,255))
+					
+					cv2.putText(img, str(idx), pos, fontFace = cv2.FONT_HERSHEY_SCRIPT_SIMPLEX, fontScale = 0.4, color=(0,0,255))
+
 					cv2.circle(img, pos, 2, (0,255,255), -1)
 
 	
@@ -70,9 +70,7 @@ def face_capture(N = None):
 		del(cam)
 		cv2.destroyAllWindows()
 		if N == None:
-			print N
 			return faces, positions
 		else:
-			print N
 			return img, faces, positions
 

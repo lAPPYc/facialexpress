@@ -12,8 +12,7 @@ expressions =  ['neutral','smile','fear','disgust','anger','surprise','curious']
 def create():
 
 	for i in expressions:
-		import i
-		
+		f = open('training_dataset/'+i+'.py','w')		
 
 def normalize(face, position, w, h, eye_dist):
 

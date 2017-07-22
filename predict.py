@@ -1,21 +1,22 @@
-from train import classifier
 from face import face_capture
-from dataset import expressions
-from dataset import w, h, eye_dist
 from processing import normalize
 import cv2
+from sklearn.externals import joblib
+
+expressions =  ['neutral','smile','fear','disgust','anger','surprise','curious']
+w = 100; h = 120; eye_dist = 20
 
 while(1):
 
-	img, face, positions = face_capture()
+	img, face, positions = face_capture(1)
 
-	positions = normalize(face, position, w, h, eye_dist)
+	positions = normalize(face, positions, w, h, eye_dist)
+	clf = joblib.load('classifier.pkl')
+	label = clf.predict(positions)
 
-	label = classifier.predict(positions)
+	print label
 
-	cv2.putText(img,str(label),positions[8],fontFace = 									cv2.FONT_HERSHEY_SCRIPT_SIMPLEX,
-									fontScale = 0.4,
-									color=(0,0,255))
+	cv2.putText(img,str(label),(100,100),fontFace = cv2.FONT_HERSHEY_SCRIPT_SIMPLEX, fontScale = 4, color=(0,0,255))
 
 	cv2.imshow('output',img)
 
