@@ -1,4 +1,13 @@
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+from time import sleep
+import os
+
+expressions =  ['neutral','smile','fear','disgust','anger','surprise','curious']
+
 def create():
+	os.system('rm training_dataset/')
 	for i in expressions:
 		os.system('touch training_dataset/'+i+'.txt')
 

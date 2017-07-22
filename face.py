@@ -1,4 +1,4 @@
-def face_capture(ret = None):
+def face_capture(N = None):
 
 	import dlib
 	import cv2
@@ -69,7 +69,10 @@ def face_capture(ret = None):
 
 		del(cam)
 		cv2.destroyAllWindows()
-		if ret == None:
+		if N == None:
+			print N
 			return faces, positions
 		else:
+			print N
 			return img, faces, positions
+
