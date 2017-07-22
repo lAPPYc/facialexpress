@@ -34,9 +34,8 @@ while(1):
 									minSize = (30,30)
 									#flags = cv2.CV_HAAR_SCALE_IMAGE
 									)
-	
-	
-	for (x, y ,w, h) in faces:	
+
+	for (x, y ,w, h) in faces:
 		if len(faces) != 0:		
 			cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
 		
