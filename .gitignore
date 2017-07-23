@@ -1,0 +1,3 @@
+*.pyc
+training_dataset/*.pyc
+lib/*
