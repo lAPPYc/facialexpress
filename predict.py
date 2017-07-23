@@ -7,11 +7,17 @@ expressions =  ['neutral','smile','fear','disgust','anger','surprise','curious']
 w = 100; h = 120; eye_dist = 20
 
 while(1):
-
+	
+	print 'captureing'
 	img, face, positions = face_capture(1)
-
+	print 'captured, analyzing'
+	if len(face) != 1:
+		continue	
+	
 	positions = normalize(face, positions, w, h, eye_dist)
+	print 'normalized'
 	clf = joblib.load('classifier.pkl')
+	print 'loaded'
 	label = clf.predict(positions)
 
 	print label

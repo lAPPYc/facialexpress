@@ -23,6 +23,7 @@ def face_capture(N = None):
 	MOUTH_INNER_POINTS = list(range(61, 68)) 
 
 	faces = []
+	positions = []
 	a = 0
 	while len(faces) == 0:
 		if a != 0:
@@ -46,25 +47,24 @@ def face_capture(N = None):
 			for (x, y ,w, h) in faces:	
 				if len(faces) == 1:
 					cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
-		
-				dlib_rect = dlib.rectangle(int(x), int(y), int(x+w), int(y+h))
-		
+				dlib_rect = dlib.rectangle(int(x), int(y), int(x+w), int(y+h))		
 				landmarks = np.matrix([[p.x, p.y] for p in predictor(img, dlib_rect).parts()])		#Landmarks is a matrix with landmark no. as the first coordinate, and the x and y on the second position. x coordinate of 13th landmark is accessed by landmarks[12,0]
 		
-				positions = []
 				for idx, point in enumerate(landmarks):
-					
 					pos = (point[0,0], point[0,1])
 					positions.append(pos)
-					
-					cv2.putText(img, str(idx), pos, fontFace = cv2.FONT_HERSHEY_SCRIPT_SIMPLEX, fontScale = 0.4, color=(0,0,255))
-
-					cv2.circle(img, pos, 2, (0,255,255), -1)
-
+					if N == None:
+						cv2.putText(img, str(idx), pos, fontFace = cv2.FONT_HERSHEY_SCRIPT_SIMPLEX, fontScale = 0.4, color=(0,0,255))
 	
-			cv2.imshow('output',img)
-			if cv2.waitKey(1) & 0xFF == ord('q'):
+						cv2.circle(img, pos, 2, (0,255,255), -1)
+
+			if N == None:
+				cv2.imshow('output',img)
+				if cv2.waitKey(1) & 0xFF == ord('q'):
+					break
+			else:
 				break
+			
 		a = 1
 
 		del(cam)
