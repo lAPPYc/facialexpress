@@ -38,5 +38,5 @@ def build(no):
 			position = normalize(face, position,w,h,eye_dist)
 			lis.append(position)
 
-		put.write(i+'='+str(position))
+		put.write(i+'='+str(lis))
 		put.close()

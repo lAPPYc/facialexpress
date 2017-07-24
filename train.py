@@ -1,5 +1,6 @@
 def preprocessing():
 	global expressions
+	import numpy as np
 	import sys
 	sys.path.append('training_dataset')
 	import neutral
@@ -20,6 +21,12 @@ def preprocessing():
 		for j in range(len(expressions[i])):
 			features.append(expressions[i][j])
 			labels.append(i)
+	
+	features = np.array(features)
+	labels = np.array(labels)
+	
+	nsamples, nx, ny = features.shape
+	features = features.reshape((nsamples,nx*ny))
 	
 	return features, labels
 
