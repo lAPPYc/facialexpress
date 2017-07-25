@@ -4,14 +4,14 @@ def preprocessing():
 	import sys
 	sys.path.append('training_dataset')
 	import neutral
-	import smile
-	import fear
+	import happy
+	import afraid
 	import disgust
 	import anger
 	import surprise
-	import curious
-	
-	expressions =  {'neutral':neutral.neutral,'smile':smile.smile,'fear':fear.fear,'disgust':disgust.disgust,'anger':anger.anger,'surprise':surprise.surprise,'curious':curious.curious}
+	import sad
+
+	expressions =  {'neutral':neutral.NE,'smile':happy.HA,'fear':afraid.FE,'disgust':disgust.DI,'anger':anger.AN,'surprise':surprise.SU,'sad':sad.SA}
 
 	
 	features = []

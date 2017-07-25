@@ -6,14 +6,6 @@ import os
 import sys
 sys.path.append('/training_dataset')
 
-
-expressions =  ['neutral','smile','fear','disgust','anger','surprise','curious']
-
-def create():
-
-	for i in expressions:
-		f = open('training_dataset/'+i+'.py','w')		
-
 def normalize(face, position, w, h, eye_dist):
 
 	w1 = face[0][2]; h1 = face[0][3]

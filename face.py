@@ -1,4 +1,4 @@
-def face_capture(cam, detector, predictor):
+def face_capture(cam,img_path, img_name, detector, predictor):
 
 	import dlib
 	import cv2
@@ -9,8 +9,10 @@ def face_capture(cam, detector, predictor):
 
 	faces = []
 	positions = []
-			
-	ret, img = cam.read()
+	if cam == None:
+		img = cv2.imread(img_path+img_name)
+	else:
+		ret, img = cam.read()
 	gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)	
 	faces = detector.detectMultiScale(gray,scaleFactor = 1.1,minNeighbors = 5,minSize = (30,30)#,flags = cv2.CV_HAAR_SCALE_IMAGE
 										)
@@ -28,5 +30,7 @@ def face_capture(cam, detector, predictor):
 				cv2.putText(img, str(idx), pos, fontFace = cv2.FONT_HERSHEY_SCRIPT_SIMPLEX, fontScale = 0.4, color=(0,0,255))
 				cv2.circle(img, pos, 2, (0,255,255), -1)
 	
-	return img, faces, positions
-
+	if cam == None:
+		return faces, positions
+	else:
+		return img, faces, positions
