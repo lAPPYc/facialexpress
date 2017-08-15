@@ -1,0 +1,5 @@
+.gitignore
+*.pyc
+training_dataset/*.pyc
+lib/*
+training_dataset/pics/*
