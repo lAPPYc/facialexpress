@@ -1,0 +1,15 @@
+build.pyc
+dataset.pyc
+face.pyc
+lib/
+processing.pyc
+train.pyc
+training_dataset/anger.pyc
+training_dataset/disgust.pyc
+training_dataset/fear.pyc
+training_dataset/happy.pyc
+training_dataset/neutral.pyc
+training_dataset/pics/
+training_dataset/sad.pyc
+training_dataset/surprise.pyc
+
