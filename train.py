@@ -10,21 +10,31 @@ import anger
 import surprise
 import sad
 from sklearn import svm
+import random
+from sklearn.linear_model import LogisticRegression
+import pickle
 
 expressions =  {'neutral':neutral.NE,'happy':happy.HA,'fear':afraid.FE,'disgust':disgust.DI,'anger':anger.AN,'surprise':surprise.SU,'sad':sad.SA}
-	
-for i in range(68):
-	features = []
-	labels = []
 
-	for j in expressions:
+features = np.empty((0,68*2))
+labels = []
+for i in expressions:
+	for j in expressions[i]:
+		labels.append(i)
+		pos = []
+		for (x,y) in j:
+			pos.append(x)
+			pos.append(y)
+		features = np.vstack((features,np.array(pos,dtype='float')))
 
-		for k in expressions[j]:
-			features.append(list(k[i]))
-			labels.append(j)
+#features has 213 samples
 
-	clf = svm.SVC(kernel = 'rbf')
-	clf.fit(features, labels)
+temp = list(zip(features,labels))
+random.shuffle(temp)
+features,labels = zip(*temp)
 
-	from sklearn.externals import joblib
-	joblib.dump(clf,'classifiers/'+str(i)+'.pkl')
+model = LogisticRegression()
+model.fit(features,labels)
+
+filename = 'classifiers/clf.sav'
+pickle.dump(model,open(filename,'wb'))

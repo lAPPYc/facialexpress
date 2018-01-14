@@ -5,6 +5,7 @@ from processing import normalize
 import cv2
 from sklearn.externals import joblib
 import dlib
+import pickle
 
 predictor = 'lib/shape_predictor_68_face_landmarks.dat'
 predictor = dlib.shape_predictor(predictor)
@@ -34,15 +35,29 @@ def trial():
 		except ValueError:
 			[x,y,w,h] = [0]*4
 
-		positions = normalize(face, positions, w, h, eye_dist)
-		labels = []
+		pos = normalize(face, positions, w, h, eye_dist)
+		print i
+		print "\n", pos
+		print "\n", lis
+		exit(0)
+		positions = []
+		for (x,y) in pos:
+			positions.append(x)
+			positions.append(y)
+		positions = np.array(positions).reshape(1,-1)
+
+		'''labels = []
 		
 		for j in range(len(positions)):
 			clf = joblib.load('classifiers/'+str(j)+'.pkl')
 			label = clf.predict([list(positions[j])])
 			labels.append(label[0])
 		
-		emotions.append(max(set(labels),key=labels.count))
+		emotions.append(max(set(labels),key=labels.count))'''
+		
+		clf = pickle.load(open('classifiers/clf.sav','rb'))
+		label = clf.predict(positions)
+		emotions.append(label[0])
 		
 		'''cv2.putText(img,emotion,(x+w/10,y+h+20),fontFace = cv2.FONT_HERSHEY_SIMPLEX, fontScale = 1, color=(0,0,255),thickness = 2)	
 		cv2.imshow(img_name,img)

@@ -1,3 +1,4 @@
+.gitignore
 build.pyc
 dataset.pyc
 face.pyc
@@ -12,4 +13,4 @@ training_dataset/neutral.pyc
 training_dataset/pics/
 training_dataset/sad.pyc
 training_dataset/surprise.pyc
-
+training_dataset/afraid.pyc
