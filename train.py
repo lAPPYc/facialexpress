@@ -13,6 +13,7 @@ from sklearn import svm
 import random
 from sklearn.linear_model import LogisticRegression
 import pickle
+from sklearn.metrics import accuracy_score
 
 expressions =  {'neutral':neutral.NE,'happy':happy.HA,'fear':afraid.FE,'disgust':disgust.DI,'anger':anger.AN,'surprise':surprise.SU,'sad':sad.SA}
 
@@ -38,3 +39,7 @@ model.fit(features,labels)
 
 filename = 'classifiers/clf.sav'
 pickle.dump(model,open(filename,'wb'))
+
+clf = pickle.load(open('classifiers/clf.sav','rb'))
+pred = clf.predict(features)
+print accuracy_score(pred,labels)

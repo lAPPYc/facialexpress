@@ -3,9 +3,9 @@ import numpy as np
 from face import face_capture
 from processing import normalize
 import cv2
-from sklearn.externals import joblib
 import dlib
 import pickle
+from sklearn.metrics import accuracy_score
 
 predictor = 'lib/shape_predictor_68_face_landmarks.dat'
 predictor = dlib.shape_predictor(predictor)
@@ -30,31 +30,20 @@ def trial():
 		img = cv2.imread(img_path+i)
 		L.append(abbvr[img_name[3:5]])
 		face, positions = face_capture(cam=None, img_path=img_path, img_name=i, detector=detector, predictor=predictor)
-		try:
-			[[x,y,w,h]] = face
-		except ValueError:
-			[x,y,w,h] = [0]*4
+		#try:
+		[[x,y,w,h]] = face
+		#except ValueError:
+		#	[x,y,w,h] = [0]*4
+
 
 		pos = normalize(face, positions, w, h, eye_dist)
-		print i
-		print "\n", pos
-		print "\n", lis
-		exit(0)
 		positions = []
 		for (x,y) in pos:
 			positions.append(x)
 			positions.append(y)
 		positions = np.array(positions).reshape(1,-1)
 
-		'''labels = []
-		
-		for j in range(len(positions)):
-			clf = joblib.load('classifiers/'+str(j)+'.pkl')
-			label = clf.predict([list(positions[j])])
-			labels.append(label[0])
-		
-		emotions.append(max(set(labels),key=labels.count))'''
-		
+
 		clf = pickle.load(open('classifiers/clf.sav','rb'))
 		label = clf.predict(positions)
 		emotions.append(label[0])
@@ -68,13 +57,7 @@ def trial():
 			cv2.destroyAllWindows()
 			exit(0)'''
 
-	NO = len(L)
-	correct = 0
-	for i in range(len(L)):
-		if L[i] == emotions[i]:
-			correct = correct + 1
-	accuracy = correct/float(NO)
-	print accuracy
+	print accuracy_score(emotions,L)
 	exit(0)
 
 trial()
