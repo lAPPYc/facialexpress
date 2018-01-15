@@ -31,10 +31,9 @@ def trial():
 		L.append(abbvr[img_name[3:5]])
 		face, positions = face_capture(cam=None, img_path=img_path, img_name=i, detector=detector, predictor=predictor)
 		#try:
-		[[x,y,w,h]] = face
+		[[x,y,width,height]] = face
 		#except ValueError:
-		#	[x,y,w,h] = [0]*4
-
+		#	[x,y,width,height] = [0]*4
 
 		pos = normalize(face, positions, w, h, eye_dist)
 		positions = []

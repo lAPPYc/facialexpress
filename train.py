@@ -39,7 +39,3 @@ model.fit(features,labels)
 
 filename = 'classifiers/clf.sav'
 pickle.dump(model,open(filename,'wb'))
-
-clf = pickle.load(open('classifiers/clf.sav','rb'))
-pred = clf.predict(features)
-print accuracy_score(pred,labels)
